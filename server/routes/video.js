@@ -9,11 +9,11 @@ const multer = require("multer")
 
 let Storage = multer.diskStorage( {
     destination: (req, file, cb) => {
-        cb(null, "nuploads/");
+        cb(null, "uploads/");
     },
     
     filename: (req, file, cb) => {
-        cb(null, `${Data.now()}_${file.originalname}`);
+        cb(null, `${Date.now()}_${file.originalname}`);
     },
 
     fileFilter: (req, file, cb) => {
