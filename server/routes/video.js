@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-// const { Video } = require("../models/Video");
+const { Video } = require("../models/Video");
 
 const multer = require("multer");
 const ffmpeg = require("fluent-ffmpeg");
@@ -36,6 +36,7 @@ const upload = multer( {storage: Storage} ).single("file");
 
 // router.post("/api/video/uploadfiles")
 // index.js 에서 api/video는 읽었으니까 안써줘도 됨.
+
 router.post("/uploadfiles", (req, res) => {
 
     //req는 영상파일(formData)
@@ -87,6 +88,18 @@ router.post("/thumbnail", (req, res) => {
             //'%b' : input basename (filename w/o extension)
             filename: "thumbnail-%b.png"
         })
+});
+
+router.post("/uploadVideo", (req, res) => {
+    //비디오 정보 저장, body -> 모든 정보 가져옴
+    const video = new Video(req.body)
+    video.save( (err, doc) => {
+        if(err) {
+            return res.json( {success: false, err} )
+        } else {
+            return res.json( {success: true} )
+        }
+    })
 });
 
 module.exports = router;

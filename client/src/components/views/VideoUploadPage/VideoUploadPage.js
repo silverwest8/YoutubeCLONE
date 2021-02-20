@@ -3,6 +3,8 @@ import { Input, Typography, Button, Form, Icon } from 'antd';
 import { PlusSquareOutlined } from '@ant-design/icons';
 import Dropzone from 'react-dropzone';
 import Axios from 'axios'
+import { useSelector } from 'react-redux'
+
 
 const { TextArea } = Input;
 const { Title } = Typography;
@@ -20,6 +22,8 @@ const CategoryOptions = [
 ]
 
 function VideoUploadPage() {
+
+    const user = useSelector(state => state.user);
 
     const [VideoTitle, setVideoTitle] = useState("");
     const [VideoDesc, setVideoDesc] = useState("");
@@ -88,13 +92,37 @@ function VideoUploadPage() {
             })
     }
     
+    const onSubmit = (e) => {
+        e.preventDefault();
+        const variable = {
+            //writer 가져오는 방법 -> redux hook (id만 있으면 다 가져올 수 있음)
+            writer: user.userData._id,
+            title: VideoTitle,
+            description: VideoDesc,
+            privacy: Private,
+            filePath: FilePath,
+            category: Category,
+            duration: Duration,
+            thumbnail: ThumbnailPath
+        }
+
+        Axios.post('/api/video/uploadVideo', variable)
+            .then(response => {
+                if (response.data.success) {
+                    console.log(response.data);
+                } else {
+                    alert("video upload fail");
+                }
+            })
+    }
+
     return (
         <div style={{ maxWidth: '700px', margin:'2rem auto' }}>
             <div style={{ textAlign:'center', marginBottom:'2rem' }}>
                 <Title level={2}> Upload Video! </Title>
             </div>
 
-            <Form onSubmit>
+            <Form onSubmit={onSubmit}>
                 <div style={{ display:'flex', justifyContent:'space-between' }}>
                     {/* dropzone */}
                     <Dropzone
@@ -157,7 +185,7 @@ function VideoUploadPage() {
                 <br/>
                 <br/>
 
-                <Button type="primary" size="large" onClick>
+                <Button type="primary" size="large" onClick={onSubmit}>
                     Submit
                 </Button>
 
