@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Input, Typography, Button, Form, Icon } from 'antd';
+import { Input, Typography, Button, Form, Icon, message } from 'antd';
 import { PlusSquareOutlined } from '@ant-design/icons';
 import Dropzone from 'react-dropzone';
 import Axios from 'axios'
@@ -21,7 +21,7 @@ const CategoryOptions = [
     {value: 3, label: "Pets & Aninals"}
 ]
 
-function VideoUploadPage() {
+function VideoUploadPage(props) {
 
     const user = useSelector(state => state.user);
 
@@ -110,6 +110,10 @@ function VideoUploadPage() {
             .then(response => {
                 if (response.data.success) {
                     console.log(response.data);
+                    message.success("video upload success!");
+                    setTimeout(() => {
+                        props.history.push("/")
+                    }, 3000);
                 } else {
                     alert("video upload fail");
                 }
