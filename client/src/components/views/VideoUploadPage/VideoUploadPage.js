@@ -26,6 +26,11 @@ function VideoUploadPage() {
     const [Private, setPrivate] = useState(0);  //privite => 0, public => 1
     const [Category, setCategory] = useState("Film & Animation");
 
+    //thumbnail 정보 저장
+    const [FilePath, setFilePath] = useState("");
+    const [Duration, setDuration] = useState("");
+    const [ThumbnailPath, setThumbnailPath] = useState("");
+
     const onTitleChange = (e) => {
         // e가 무엇이냐? console.log(e); 이벤트!
         setVideoTitle(e.currentTarget.value)
@@ -59,6 +64,24 @@ function VideoUploadPage() {
             .then(response => {
                 if (response.data.success) {
                     console.log(response.data);
+
+                    let variable = {
+                        url: response.data.url,
+                        fileName: response.data.fileName
+                    }
+
+                    setFilePath(response.data.url);
+
+                    Axios.post("/api/video/thumbnail", variable)
+                        .then(response => {
+                            if(response.data.success) {
+                                console.log(response.data);
+                                setDuration(response.data.fileDuration)
+                                setThumbnailPath(response.data.url)
+                            } else {
+                                alert('thumbnail generate fail');
+                            }
+                        })
                 } else {
                     alert('video upload fail');
                 }
@@ -85,15 +108,17 @@ function VideoUploadPage() {
                             <div sytle={{ width:'300px', height: '240px', border: '1px solid lightgray', alignItems:'center', justifyContent:'center' }} {...getRootProps()}>
                                 <input {...getInputProps()} />
                                 {/* <Icon type="plus" style= {{ fontSize:'3rem'}} /> */}
-                                <PlusSquareOutlined type="plus" style= {{ fontSize:'3rem' }} />
+                                <PlusSquareOutlined style= {{ fontSize:'10rem' }} />
                             </div>
                         )}
                     </Dropzone>
 
                     {/* thumnails */}
-                    <div>
-                        <img />
-                    </div>
+                    {ThumbnailPath &&
+                        <div>
+                            <img src={`http://localhost:4000/${ThumbnailPath}`} alt="thumbnail"/>
+                        </div>
+                    }
                 </div>
 
                 <br/>
