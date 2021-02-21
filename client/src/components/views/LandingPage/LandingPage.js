@@ -33,7 +33,7 @@ function LandingPage() {
 
         return <Col key={index} lg={6} md={8} xs={24} >
 
-            <a herf={`/video/post/${video._id}`} >
+            <a href={`/video/${video._id}`} >
                 <div style={{ position:"relative" }}>
                     <img style={{ width: "100%" }} src={`http://localhost:4000/${video.thumbnail}`} alt="thumbnail"/>
                     <div className="duration">
