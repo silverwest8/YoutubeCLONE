@@ -43,10 +43,12 @@ function VideoUploadPage(props) {
         setVideoDesc(e.currentTarget.value)
     }
     const onPrivateChange = (e) => {
+        console.log(e.currentTarget);
         setPrivate(e.currentTarget.value)
     }
     const onCategoryChange = (e) => {
-        setCategory(e.currentTarget.value)
+        console.log(e.currentTarget);
+        setCategory(e.currentTarget.label)
     }
 
 
@@ -179,7 +181,7 @@ function VideoUploadPage(props) {
                 <br/>
                 <br/>
 
-                <select onChange={onCategoryChange} value={Private}>
+                <select onChange={onCategoryChange}>
                     {CategoryOptions.map( (item, index) => (
                         <option key={index} value={item.value}>{item.label}</option>
                     ))}

@@ -82,7 +82,7 @@ router.post("/thumbnail", (req, res) => {
         })
         .screenshots( {
             //willl take screenshots at 20%, 40%, 60% and 80% of the video
-            count: 3,
+            count: 1,
             folder: "uploads/thumbnails",
             size: "320x240",
             //'%b' : input basename (filename w/o extension)
@@ -101,5 +101,18 @@ router.post("/uploadVideo", (req, res) => {
         }
     })
 });
+
+router.get("/getVideos", (req, res) => {
+    //video를 DB에서 가져와서 클라이언트에 보냄
+    Video.find()
+        .populate("writer") //이렇게 해야 모든 정보를 가져옴. 안하면 id만 가져옴
+        .exec( (err, videos) => {
+            if (err) {
+                return res.status(400).send(err);
+            }
+            return res.status(200).json( {success: true, videos} );
+        })//쿼리를 익스큐션
+
+})
 
 module.exports = router;
