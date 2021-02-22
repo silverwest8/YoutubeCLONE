@@ -20,11 +20,11 @@ function App() {
       <NavBar />
       <div style={{ paddingTop: '69px', minHeight: 'calc(100vh - 80px)' }}>
         <Switch>
-          <Route exact path="/" component={Auth(LandingPage, null)} />
-          <Route exact path="/login" component={Auth(LoginPage, false)} />
-          <Route exact path="/register" component={Auth(RegisterPage, false)} />
-          <Route exact path="/video/upload" component={Auth(VideoUploadPage, true)} />
-          <Route exact path="/video/:videoId" component={Auth(VideoDetailPage, null)} />
+          <Route exact path="/" component={ Auth(LandingPage, null) } />
+          <Route exact path="/login" component={ Auth(LoginPage, false) } />
+          <Route exact path="/register" component={ Auth(RegisterPage, false) } />
+          <Route exact path="/video/upload" component={ Auth(VideoUploadPage, true) } />
+          <Route exact path="/video/:videoId" component={ Auth(VideoDetailPage, null) } />
         </Switch>
       </div>
       <Footer />

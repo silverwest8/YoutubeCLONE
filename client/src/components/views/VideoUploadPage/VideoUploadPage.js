@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { withRouter } from "react-router-dom";
 import { Input, Typography, Button, Form, Icon, message } from 'antd';
 import { PlusSquareOutlined } from '@ant-design/icons';
 import Dropzone from 'react-dropzone';
@@ -200,4 +201,4 @@ function VideoUploadPage(props) {
     )
 }
 
-export default VideoUploadPage
+export default withRouter(VideoUploadPage);

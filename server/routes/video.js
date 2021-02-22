@@ -119,8 +119,9 @@ router.get("/getVideos", (req, res) => {
 })
 
 router.get("/getVideoDetails", (req, res) => {
-    console.log(req.body);
-    Video.findOne( {"_id": req.body.videoId } )
+    console.log("req --->   " + req);
+    console.log("req.body --->   " + req.body);
+    Video.findOne( {"_id": "6032061842094d30d0a39b7d" } )
         .populate("writer")
         .exec( (err, videoDetail) => {
             if (err) {
@@ -132,4 +133,4 @@ router.get("/getVideoDetails", (req, res) => {
         })
 })
 
-module.exports = router;
+module.exports = router; 

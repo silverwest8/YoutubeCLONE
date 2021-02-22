@@ -1,4 +1,5 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
 import moment from "moment";
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -200,4 +201,4 @@ function RegisterPage(props) {
 };
 
 
-export default RegisterPage
+export default withRouter(RegisterPage);

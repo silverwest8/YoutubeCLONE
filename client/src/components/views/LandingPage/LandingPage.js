@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { withRouter } from "react-router-dom";
 // import { VideoCameraFilled } from '@ant-design/icons';
 import Axios from "axios";
 import { Typography, Row, Col, Card, Avatar } from 'antd';
@@ -69,4 +70,4 @@ function LandingPage() {
     )
 }
 
-export default LandingPage;
+export default withRouter(LandingPage);
