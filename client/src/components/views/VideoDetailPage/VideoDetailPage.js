@@ -6,12 +6,12 @@ import Axios from 'axios';
 function VideoDetailPage(props) {
 
     const [VideoDetail, setVideoDetail] = useState([]);
-    const videoID = props.match.params.videoId;
-    const Data = { "videoID": videoID };
+    const videoId = props.match.params.videoId;
+    const variable = { "videoId": videoId };
 
     useEffect(() => {
-        console.log(Data);
-        Axios.get('/api/video/getVideoDetails', Data)
+        console.log(variable);
+        Axios.get('/api/video/getVideoDetails', variable)
             .then(response => {
                 if (response.data.success) {
                     console.log(response.data);
