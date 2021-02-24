@@ -15,6 +15,7 @@ const config = require("./config/key");
 //   .catch(err => console.error(err));
 
 const mongoose = require("mongoose");
+
 const connect = mongoose.connect(config.mongoURI,
   {
     useNewUrlParser: true, useUnifiedTopology: true,
@@ -25,9 +26,10 @@ const connect = mongoose.connect(config.mongoURI,
 
 app.use(cors())
 
+
 //to get json data
 // support parsing of application/json type post data
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '50mb'}));
 //to not get any deprecation warning or error
 //support parsing of application/x-www-form-urlencoded post data
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -38,6 +40,7 @@ app.use('/api/users', require('./routes/users'));
 
 //videouploadpage 에서 여기로 왔다가 route로 감
 app.use('/api/video', require('./routes/video'));
+app.use('/api/subscribe', require('./routes/subscribe'));
 
 //use this to show the image you have in node js server to client (react js)
 //https://stackoverflow.com/questions/48914987/send-image-path-from-node-js-express-server-to-react-client
@@ -57,7 +60,8 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // const port = process.env.PORT || 4000;
-const port = 4000 || process.env.PORT;
+// const port = 4000 || process.env.PORT;
+const port = 4000;
 
 app.listen(port, () => {
   console.log(`Server Listening on ${port}`)
