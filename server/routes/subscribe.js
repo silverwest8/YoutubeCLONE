@@ -34,4 +34,29 @@ router.post("/subscribed", (req, res) => {
         })
 })
 
+router.post("/unSubscribe", (req, res) => {
+    console.log("unSubscribe" + req.body);
+    Subscriber.findOneAndDelete({'userTo': req.body.userTo})
+        .exec( (err, doc) => {
+            if (err) {
+                return res.status(400).send(err);
+            } else {
+                return res.status(200).json({success: true, doc});
+            }
+        })
+})
+
+router.post("/subscribe", (req, res) => {
+    console.log("subscribe" + req.body);
+    const subscribe = new Subscriber(req.body);
+    subscribe.save({'userTo': req.body.userTo, 'userFrom': req.body.userFrom})
+        .exec( (err, doc) => {
+            if (err) {
+                return res.status(400).send(err);
+            } else {
+                return res.status(200).json({success: true});
+            }
+        })
+})
+
 module.exports = router;

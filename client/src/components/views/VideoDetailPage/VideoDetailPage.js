@@ -32,7 +32,7 @@ function VideoDetailPage(props) {
                     <video style={{ width: "100%" }} src={`http://localhost:4000/${VideoDetail?.filePath}`} />
 
                     <List.Item
-                        actions={[<Subscribe userTo={VideoDetail.writer?._id} />]}
+                        actions={[<Subscribe userTo={VideoDetail.writer?._id} userFrom={localStorage.getItem("userId")}/>]}
                     >
                         <List.Item.Meta
                             avatar={ <Avatar src={VideoDetail.writer?.image} /> }

@@ -3,15 +3,15 @@ import Axios from "axios";
 
 function Subscribe(props) {
 
-    const [SubscribeNumber, setSubscribeNumber] = useState("")
-    const [Subscribed, setSubscribed] = useState("")
+    const [SubscribeNumber, setSubscribeNumber] = useState(0);
+    const [Subscribed, setSubscribed] = useState(false);
 
     useEffect(() => {
         console.log("here is in Subscribe");
-        //몇명이 이사람을 구독하는지 가져옴(구독자가 몇명인지) -> 그러니까 업로드한 사람의 정보를 가져와야 함. videoDetailPage 에서 props로 넣어줌
+        //몇명이 이사람을 구독하는지 가져옴(구독자가 몇명인지) -> 업로드한 사람의 정보를 가져와야 함. videoDetailPage 에서 props로 넣어줌
         let variable = { userTo: props.userTo };
         Axios.post("/api/subscribe/subscribeNumber", variable)
-            .then( response => {
+            .then(response => {
                 if (response.data.success) {
                     console.log("subscribeNumber data : "+response.data);
                     setSubscribeNumber(response.data.SubscribeNumberNumber);
@@ -33,10 +33,38 @@ function Subscribe(props) {
         })
     }, [])
 
+    const onSubscribe = () => {
+        let subscribedVariable = {userTo: props.userTo, userFrom: props.userFrom}
+        if (Subscribed) { //구독중이면 구독취소
+            Axios.post("/api/subscribe/unSubscribe", subscribedVariable)
+                .then(response => {
+                    if (response.data.success) {
+                        console.log(response.data);
+                        setSubscribeNumber(SubscribeNumber-1);
+                        setSubscribed(!Subscribed);
+                    } else {
+                        alert("unSubscribe fail");
+                    }
+                })
+        } else { //구독중이 아니라면 구독
+            Axios.post("/api/subscribe/subscribe", subscribedVariable)
+                .then(response => {
+                    if (response.data.success) {
+                        console.log(response.data);
+                        setSubscribeNumber(SubscribeNumber+1);
+                        setSubscribed(!Subscribed);
+                    } else {
+                        alert("subscribe fail");
+                    }
+                })
+        }
+    }
+
     return (
         <div>
             <button
-                style={{ backgroundColor: `${Subscribed ? "#CC0000" : "#AAAAAA"}`, borderRadius: "4px", color: "white", padding: "10px 16px", fontWeight: "500", fontSize: "1rem", textTransform: "uppercase" }}
+                style={{ backgroundColor: `${Subscribed ? "#AAAAAA" : "#CC0000" }`, borderRadius: "4px", color: "white", padding: "10px 16px", fontWeight: "500", fontSize: "1rem", textTransform: "uppercase" }}
+                onClick={onSubscribe}
 
             >
                 {SubscribeNumber} {Subscribed ? "Subscribed" : "Subscribe"}
