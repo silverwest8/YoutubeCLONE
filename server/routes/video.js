@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const { Video } = require("../models/Video");
+const { Subscriber } = require("../models/Subscriber");
+
 
 const multer = require("multer");
 const ffmpeg = require("fluent-ffmpeg");
@@ -120,8 +122,8 @@ router.get("/getVideos", (req, res) => {
 
 router.get("/getVideoDetails", (req, res) => {
     // console.log("getVideoDetails req.body --->   " + req.body);
-    // Video.findOne( {"_id": req.body.videoId } )
-    Video.findOne( {"_id": "6032061842094d30d0a39b7d" } )
+    Video.findOne( {"_id": req.body.videoId } )
+    // Video.findOne( {"_id": "6032061842094d30d0a39b7d" } )
         .populate("writer")
         .exec( (err, videoDetail) => {
             if (err) {
@@ -133,4 +135,31 @@ router.get("/getVideoDetails", (req, res) => {
         })
 })
 
+router.post("/getSubscriptionVideo", (req, res) => {
+    //자신의 아이디를 가지고 구독하는 사람들을 찾는다.
+    Subscriber.find({ userFrom: req.body.userFrom })
+        .exec( (err, subscriberInfo) => {
+            if (err) {
+                return res.status(400).send(err);
+            } else {
+                let subscribedUser = [];
+                subscriberInfo.map((subscriber, i) => {
+                    subscribedUser.push(subscriber.userTo);
+                })
+                Video.find({ witer: { $in: subscribedUser }})
+                    .populate("writer")
+                    .exec( (err, videos) => {
+                        if (err) {
+                            return res.status(400).send(err);
+                        } else {
+                            // console.log("videos  --->   " + videos);
+                            return res.status(200).json( {success: true, videos });
+                        }
+                    })
+            }
+        })
+
+    //찾은 사람들의 비디오를 가지고 온다
+
+})
 module.exports = router;
