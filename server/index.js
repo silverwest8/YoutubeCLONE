@@ -29,7 +29,7 @@ app.use(cors())
 
 //to get json data
 // support parsing of application/json type post data
-app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.json());
 //to not get any deprecation warning or error
 //support parsing of application/x-www-form-urlencoded post data
 app.use(bodyParser.urlencoded({ extended: true }));
