@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import Axios from "axios";
 
-function Subscribe(props) {
+function Subscriber(props) {
 
     const [SubscribeNumber, setSubscribeNumber] = useState(0);
     const [Subscribed, setSubscribed] = useState(false);
 
     useEffect(() => {
-        console.log("here is in Subscribe");
+        console.log("in Subscriber...");
         //몇명이 이사람을 구독하는지 가져옴(구독자가 몇명인지) -> 업로드한 사람의 정보를 가져와야 함. videoDetailPage 에서 props로 넣어줌
         let variable = { userTo: props.userTo };
         Axios.post("/api/subscribe/subscribeNumber", variable)
@@ -73,4 +73,4 @@ function Subscribe(props) {
     )
 }
 
-export default Subscribe
+export default Subscriber;

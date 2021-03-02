@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Axios from "axios";
 
 function SideVideo() {
+    console.log("in Side Video...");
     //array 에 담기
     const [sideVideos, setsideVideos] = useState([]);
 

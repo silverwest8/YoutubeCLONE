@@ -120,17 +120,17 @@ router.get("/getVideos", (req, res) => {
 
 })
 
-router.get("/getVideoDetails", (req, res) => {
+router.post("/getVideoDetails", (req, res) => {
     // console.log("getVideoDetails req.body --->   " + req.body);
-    Video.findOne( {"_id": req.body.videoId } )
-    // Video.findOne( {"_id": "6032061842094d30d0a39b7d" } )
+    // Video.findOne( {"_id": req.body.videoId } )
+    Video.findOne({ _id: "6032061842094d30d0a39b7d" })
         .populate("writer")
-        .exec( (err, videoDetail) => {
+        .exec( (err, videodetail) => {
             if (err) {
                 return res.status(400).send(err);
             } else {
-                // console.log("videoDetail  --->   " + videoDetail);
-                return res.status(200).json( {success: true, videoDetail });
+                // console.log("videodetail  --->   " + videodetail);
+                return res.status(200).json( {success: true, videodetail });
             }
         })
 })
