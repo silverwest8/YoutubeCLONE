@@ -9,7 +9,10 @@ import Comment from './Sections/Comment';
 function VideoDetailPage(props) {
 
 	const videoId = props.match.params.videoId;
+
 	const [VideoDetail, setVideoDetail] = useState([]);
+	const [Comments, setComments] = useState([])
+
 	const variable = { videoId: videoId };
 	console.log(variable);
 	
@@ -24,6 +27,18 @@ function VideoDetailPage(props) {
 					alert("videodetail get fail");
 				}
 			})
+
+		Axios.post('/api/comment/getComments', variable)
+			.then(response => {
+				if (response.data.success) {
+					console.log(response.data.comments);
+					setComments(response.data.comments);
+					console.log("Comment : ", Comment);
+				} else {
+					alert("Comments get fail");
+				}
+			})
+			
 	}, [])
 
 	if (VideoDetail.writer) {
@@ -44,7 +59,7 @@ function VideoDetailPage(props) {
 							/>
 						</List.Item>
 
-						<Comment postId={videoId}></Comment>
+						<Comment postId={videoId} commentList={Comments}></Comment>
 
 					</div>
 				</Col>

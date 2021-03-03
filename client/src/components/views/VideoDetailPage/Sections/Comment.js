@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Axios from "axios";
 import { useSelector } from 'react-redux';
+import SingleComment from "./SingleComment";
 
 function Comment(props) {
     const videoId = props.postId;
@@ -25,7 +26,6 @@ function Comment(props) {
                     alert("saveComment fail");
                 }
             })
-
     }
 
     return (
@@ -35,6 +35,12 @@ function Comment(props) {
             <hr/>
 
             {/* Commnet Lists */}
+            {props.commentList && props.commentList.map((comment, index) => (
+                (!comment.responseTo && //responseTo가 없는 댓글만
+                    <SingleComment key={index} comment={comment} postId={props.postId} user={user}/>
+                )
+                //다른 depth는 따로
+            ))}
 
             {/* Root Comment Form */}
 

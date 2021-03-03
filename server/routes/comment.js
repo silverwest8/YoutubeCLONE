@@ -2,12 +2,12 @@ const express = require('express');
 const router = express.Router();
 const { Comment } = require("../models/Comment");
 
-//=================================
+//=================================x
 //             Comment
 //=================================
 
 router.post("/saveComment", (req, res) => {
-    console.log(req.body);
+    console.log("saveComment="+req.body);
     const comment = new Comment(req.body);
     comment.save( (err, comment) => {
         if (err) {
@@ -25,5 +25,18 @@ router.post("/saveComment", (req, res) => {
         }
     })
 })
+
+router.post("/getComments", (req, res) => {
+    console.log("getComments="+req.body);
+    Comment.find({"postId": req.body.videoId})
+        .populate('writer')
+        .exec((err, comments) => {
+            if (err) {
+                return res.status(400).send(err);
+            } else {
+                return res.status(200).json({success: true, comments});
+            }
+        })
+});
 
 module.exports = router;
