@@ -70,4 +70,4 @@ function SubscriptionPage () {
     )
 }
 
-export default withRouter(SubscriptionPage );
+export default withRouter( SubscriptionPage );

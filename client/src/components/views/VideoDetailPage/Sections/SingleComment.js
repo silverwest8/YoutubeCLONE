@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useSelector } from 'react-redux';
 import { Comment, Avatar, Button, Input } from "antd";
 import Axios from "axios";
+import { withRouter } from "react-router-dom";
 
 const { TextArea } = Input;
 
@@ -29,6 +30,8 @@ function SingleComment(props) {
             .then(response => {
                 if (response.data.success) {
                     console.log(response.data.result);
+                    setCommentValue("");
+                    props.refreshFunction(response.data.result);
                 } else {
                     alert("saveComment fail");
                 }
@@ -62,4 +65,4 @@ function SingleComment(props) {
     )
 }
 
-export default SingleComment
+export default withRouter(SingleComment);

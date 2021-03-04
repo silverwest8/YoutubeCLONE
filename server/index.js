@@ -24,9 +24,9 @@ const connect = mongoose.connect(config.mongoURI,
   .then(() => console.log('MongoDB Connected...'))
   .catch(err => console.log(err));
 
-app.use(cors())
+app.use(cors());
 
-
+app.use(express.json());
 //to get json data
 // support parsing of application/json type post data
 app.use(bodyParser.json());
@@ -37,7 +37,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use('/api/users', require('./routes/users'));
-
 //videouploadpage 에서 여기로 왔다가 route로 감
 app.use('/api/video', require('./routes/video'));
 app.use('/api/subscribe', require('./routes/subscribe'));

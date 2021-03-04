@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Axios from "axios";
+import { withRouter } from "react-router-dom";
 
 function SideVideo() {
     console.log("in Side Video...");
@@ -60,4 +61,4 @@ function SideVideo() {
     )
 }
 
-export default SideVideo
+export default withRouter(SideVideo);

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Axios from "axios";
+import { withRouter } from "react-router-dom";
 
 function Subscriber(props) {
 
@@ -73,4 +74,4 @@ function Subscriber(props) {
     )
 }
 
-export default Subscriber;
+export default withRouter(Subscriber);

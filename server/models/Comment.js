@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const CommentSchema = mongoose.Schema({
+const commentSchema = mongoose.Schema({
     writer: {
         //얘만 있어도 user 모델 전부 가져올 수 있음
         type: Schema.Types.ObjectId,
@@ -22,6 +22,6 @@ const CommentSchema = mongoose.Schema({
 }, {timestamps: true} );
 
 
-const Comment = mongoose.model('Comment', CommentSchema);
+const Comment = mongoose.model('Comment', commentSchema);
 
 module.exports = { Comment }

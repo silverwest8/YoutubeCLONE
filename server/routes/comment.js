@@ -11,6 +11,7 @@ router.post("/saveComment", (req, res) => {
     const comment = new Comment(req.body);
     comment.save( (err, comment) => {
         if (err) {
+            console.log(err);
             return res.status(401).send(err);
         } else {
             Comment.find( {"_id" : comment._id})

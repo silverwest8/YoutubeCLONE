@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Axios from "axios";
 import { useSelector } from 'react-redux';
+import { withRouter } from "react-router-dom";
 import SingleComment from "./SingleComment";
 
 function Comment(props) {
@@ -22,6 +23,8 @@ function Comment(props) {
             .then(response => {
                 if (response.data.success) {
                     console.log(response.data.result);
+                    setcommentValue("");
+                    props.refreshFunction(response.data.result);
                 } else {
                     alert("saveComment fail");
                 }
@@ -37,7 +40,7 @@ function Comment(props) {
             {/* Commnet Lists */}
             {props.commentList && props.commentList.map((comment, index) => (
                 (!comment.responseTo && //responseTo가 없는 댓글만
-                    <SingleComment key={index} comment={comment} postId={props.postId} user={user}/>
+                    <SingleComment key={index} comment={comment} postId={props.postId} user={user} refreshFunction={props.refreshFunction}/>
                 )
                 //다른 depth는 따로
             ))}
@@ -57,4 +60,4 @@ function Comment(props) {
     );
 }
 
-export default Comment;
+export default withRouter(Comment);
