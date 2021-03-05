@@ -107,7 +107,7 @@ router.post("/uploadVideo", (req, res) => {
 
 router.get("/getVideos", (req, res) => {
     //video를 DB에서 가져와서 클라이언트에 보냄
-    console.log("getVideos = "+req.body);
+    console.log("getVideos = ", req);
     Video.find()
         .populate("writer") //이렇게 해야 모든 정보를 가져옴. 안하면 id만 가져옴
         .exec( (err, videos) => {
@@ -122,7 +122,7 @@ router.get("/getVideos", (req, res) => {
 })
 
 router.post("/getVideoDetails", (req, res) => {
-    console.log("getVideoDetails =" + req.body);
+    console.log("getVideoDetails = ", req.body);
     Video.findOne( {"_id": req.body.videoId } )
     // Video.findOne({ _id: "6032061842094d30d0a39b7d" })
         .populate("writer")

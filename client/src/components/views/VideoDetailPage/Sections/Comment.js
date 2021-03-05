@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, Fragment } from 'react'
 import Axios from "axios";
 import { useSelector } from 'react-redux';
 import { withRouter } from "react-router-dom";
 import SingleComment from "./SingleComment";
+import ReplyComment from "./ReplyComment";
 
 function Comment(props) {
     const videoId = props.postId;
@@ -40,7 +41,11 @@ function Comment(props) {
             {/* Commnet Lists */}
             {props.commentList && props.commentList.map((comment, index) => (
                 (!comment.responseTo && //responseTo가 없는 댓글만
-                    <SingleComment key={index} comment={comment} postId={props.postId} user={user} refreshFunction={props.refreshFunction}/>
+                    <Fragment>
+                        <SingleComment key={index} comment={comment} postId={props.postId} user={user} refreshFunction={props.refreshFunction}/>
+                        <ReplyComment commentList={props.commentList} parentCommentId={comment._id} postId={props.postId} user={user}/>
+                    </Fragment>
+
                 )
                 //다른 depth는 따로
             ))}

@@ -21,7 +21,7 @@ function VideoDetailPage(props) {
 			.then(response => {
 				if (response.data.success) {
 					console.log(response.data.videodetail);
-					setVideoDetail(response.data.videodetail);
+					setVideoDetail([response.data.videodetail]);
 					console.log("VideoDetail : ", VideoDetail);
 				} else {
 					alert("videodetail get fail");
@@ -31,6 +31,7 @@ function VideoDetailPage(props) {
 		Axios.post('/api/comment/getComments', variable)
 			.then(response => {
 				if (response.data.success) {
+					console.log(response.data);
 					console.log(response.data.comments);
 					setComments(response.data.comments);
 					console.log("Comment : ", Comment);

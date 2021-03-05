@@ -6,7 +6,7 @@ const { Comment } = require("../models/Comment");
 //             Comment
 //=================================
 
-router.post("/saveComment", (req, res) => {
+router.post("/saveComment", (req, res) => {ㅌ
     console.log("saveComment="+req.body);
     const comment = new Comment(req.body);
     comment.save( (err, comment) => {
