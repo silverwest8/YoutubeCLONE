@@ -9,14 +9,15 @@
 }
 
 .menu__logo {
-  width: 150px;
+  /* width: 250px; */
   float: left;
 }
 
 .menu__logo a {
   display: inline-block;
   font-size: 20px;
-  padding: 19px 20px;
+  padding: 19px 20px 19px 20px;
+  color: black;
 }
 
 .menu__container .ant-menu-item {

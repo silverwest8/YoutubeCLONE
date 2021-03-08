@@ -22,7 +22,7 @@ function RightMenu(props) {
   if (user.userData && !user.userData.isAuth) { //로그인 X
     return (
       <Menu mode={props.mode}>
-        <Menu.Item key="mail">
+        <Menu.Item key="mail" style={{paddingTop: "13px"}}>
           <a href="/login">Sign in</a>
         </Menu.Item>
         <Menu.Item key="app">

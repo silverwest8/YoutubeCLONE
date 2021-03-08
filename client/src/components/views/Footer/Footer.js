@@ -5,7 +5,7 @@ function Footer() {
         <div style={{
             height: '50px', display: 'flex',
             flexDirection: 'column', alignItems: 'center',
-            justifyContent: 'center', fontSize:'1rem'
+            justifyContent: 'center', fontSize:'0.8rem'
         }}>
            <p> by silverwest </p>
         </div>

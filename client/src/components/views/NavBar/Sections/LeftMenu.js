@@ -1,11 +1,10 @@
 import React from 'react';
 import { Menu } from 'antd';
-const SubMenu = Menu.SubMenu;
 
 function LeftMenu(props) {
   return (
     <Menu mode={props.mode}>
-    <Menu.Item key="home">
+    <Menu.Item key="home" style={{paddingTop: "13px"}}>
       <a href="/">Home</a>
     </Menu.Item>
     <Menu.Item key="Subscription">
