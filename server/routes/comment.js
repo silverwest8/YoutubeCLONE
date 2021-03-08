@@ -7,11 +7,10 @@ const { Comment } = require("../models/Comment");
 //=================================
 
 router.post("/saveComment", (req, res) => {ㅌ
-    console.log("saveComment="+req.body);
+    console.log("saveComment=", req.body);
     const comment = new Comment(req.body);
     comment.save( (err, comment) => {
         if (err) {
-            console.log(err);
             return res.status(401).send(err);
         } else {
             Comment.find( {"_id" : comment._id})
@@ -28,7 +27,7 @@ router.post("/saveComment", (req, res) => {ㅌ
 })
 
 router.post("/getComments", (req, res) => {
-    console.log("getComments="+req.body);
+    console.log("getComments=", req.body);
     Comment.find({"postId": req.body.videoId})
         .populate('writer')
         .exec((err, comments) => {

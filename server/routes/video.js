@@ -93,7 +93,7 @@ router.post("/thumbnail", (req, res) => {
 });
 
 router.post("/uploadVideo", (req, res) => {
-    console.log("uploadVideo = "+req.body);
+    console.log("uploadVideo = ", req.body);
     //비디오 정보 저장, body -> 모든 정보 가져옴
     const video = new Video(req.body)
     video.save( (err, doc) => {
@@ -107,7 +107,7 @@ router.post("/uploadVideo", (req, res) => {
 
 router.get("/getVideos", (req, res) => {
     //video를 DB에서 가져와서 클라이언트에 보냄
-    console.log("getVideos = ", req);
+    console.log("getVideos = ", req.body);
     Video.find()
         .populate("writer") //이렇게 해야 모든 정보를 가져옴. 안하면 id만 가져옴
         .exec( (err, videos) => {
